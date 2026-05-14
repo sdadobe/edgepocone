@@ -12,8 +12,78 @@ function normalizePanel(panel) {
   return panel;
 }
 
+function findList(container) {
+  return [...container.children].find((element) => ['OL', 'UL'].includes(element.tagName));
+}
+
+function buildGroup(elements, className) {
+  if (!elements.length) return null;
+
+  const group = document.createElement('div');
+  group.className = className;
+  group.append(...elements);
+  return group;
+}
+
+function normalizeTaskPanel(panel) {
+  const list = findList(panel);
+  if (!list) return panel;
+
+  const leadingElements = [];
+  let sibling = panel.firstElementChild;
+  while (sibling && sibling !== list) {
+    const nextSibling = sibling.nextElementSibling;
+    leadingElements.push(sibling);
+    sibling = nextSibling;
+  }
+
+  if (leadingElements.length && panel.firstElementChild !== list) {
+    const header = buildGroup(leadingElements, 'talent-hub-panel-header');
+    panel.prepend(header);
+  }
+
+  return panel;
+}
+
+function normalizeSummaryPanel(panel) {
+  const list = findList(panel);
+  if (!list) return panel;
+
+  const leadingElements = [];
+  let sibling = panel.firstElementChild;
+  while (sibling && sibling !== list) {
+    const nextSibling = sibling.nextElementSibling;
+    leadingElements.push(sibling);
+    sibling = nextSibling;
+  }
+
+  const subheaderStart = leadingElements.findIndex((element) => element.tagName === 'H3');
+  const topHeaderElements = subheaderStart === -1
+    ? leadingElements
+    : leadingElements.slice(0, subheaderStart);
+  const subheaderElements = subheaderStart === -1
+    ? []
+    : leadingElements.slice(subheaderStart);
+
+  if (topHeaderElements.length && panel.firstElementChild !== list) {
+    const header = buildGroup(topHeaderElements, 'talent-hub-panel-header');
+    panel.prepend(header);
+  }
+
+  if (subheaderElements.length) {
+    const content = document.createElement('div');
+    content.className = 'talent-hub-summary-content';
+    const subheader = buildGroup(subheaderElements, 'talent-hub-summary-header');
+    if (subheader) content.append(subheader);
+    content.append(list);
+    panel.append(content);
+  }
+
+  return panel;
+}
+
 function decorateTaskList(section) {
-  const panel = normalizePanel(section.firstElementChild);
+  const panel = normalizeTaskPanel(normalizePanel(section.firstElementChild));
   if (!panel) return;
 
   const [header, list] = panel.children;
@@ -35,7 +105,7 @@ function decorateTaskList(section) {
 }
 
 function decorateSummary(section) {
-  const panel = normalizePanel(section.firstElementChild);
+  const panel = normalizeSummaryPanel(normalizePanel(section.firstElementChild));
   if (!panel) return;
 
   const [header, content] = panel.children;
