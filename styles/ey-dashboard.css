@@ -1,0 +1,118 @@
+body.ey-dashboard {
+  --ey-yellow: #ffe600;
+  --ey-ink-color: #2e2e38;
+  --ey-surface-color: #fff;
+  --ey-border-color: #686a78;
+  --ey-muted-text: #525463;
+  --ey-page-background: #f5f5f7;
+  --background-color: #fff;
+  --light-color: #efeff2;
+  --dark-color: #444654;
+  --text-color: var(--ey-ink-color);
+  --link-color: var(--ey-ink-color);
+  --link-hover-color: #111;
+  --body-font-family: roboto, roboto-fallback, sans-serif;
+  --heading-font-family: roboto, roboto-fallback, sans-serif;
+  --nav-height: 72px;
+
+  background: var(--ey-page-background);
+  color: var(--ey-ink-color);
+}
+
+body.ey-dashboard header {
+  height: var(--nav-height);
+}
+
+body.ey-dashboard header .nav-wrapper {
+  border-bottom: 1px solid #d0d1d8;
+  background: #fff;
+}
+
+body.ey-dashboard header nav {
+  max-width: 1440px;
+  padding: 0 12px;
+  gap: 0 16px;
+}
+
+body.ey-dashboard header .nav-brand {
+  flex-basis: auto;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+body.ey-dashboard header .nav-brand a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+body.ey-dashboard .ey-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: var(--ey-ink-color);
+  color: var(--ey-yellow);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+body.ey-dashboard header .nav-sections ul {
+  gap: 20px;
+  font-size: 0.98rem;
+  align-items: center;
+}
+
+body.ey-dashboard header .nav-sections a {
+  text-decoration: none;
+}
+
+body.ey-dashboard header .nav-sections strong a {
+  padding: 10px 16px;
+  border: 1px solid #d7d8df;
+  border-radius: 8px;
+  background: #ececef;
+}
+
+body.ey-dashboard header .nav-tools p {
+  margin: 0;
+}
+
+body.ey-dashboard header .nav-tools input[type='search'] {
+  width: min(220px, 45vw);
+  border: 1px solid #d0d1d8;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #fafafb;
+  color: var(--ey-ink-color);
+}
+
+body.ey-dashboard main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 18px 12px 40px;
+}
+
+body.ey-dashboard main > div {
+  margin: 0;
+}
+
+body.ey-dashboard footer {
+  background: transparent;
+}
+
+@media (width >= 900px) {
+  body.ey-dashboard header nav {
+    padding: 0 14px;
+  }
+
+  body.ey-dashboard header .nav-tools input[type='search'] {
+    width: 240px;
+  }
+
+  body.ey-dashboard main {
+    padding: 22px 14px 48px;
+  }
+}
